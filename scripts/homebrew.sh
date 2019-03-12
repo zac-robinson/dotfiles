@@ -19,6 +19,8 @@ brew install zsh
 brew install zsh-syntax-highlighting
 brew install zsh-autosuggestions
 brew install zplug
+brew install scmpuff
+brew install nnn
 
 brew install git
 

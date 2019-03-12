@@ -27,4 +27,6 @@ brew cask install 1password
 brew cask install boostnote
 brew cask install appcleaner
 
+brew cask install steam
+
 brew cask cleanup
