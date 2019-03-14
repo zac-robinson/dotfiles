@@ -1,0 +1,140 @@
+# PATH
+# ---------------------------------------------------------------
+
+# Default path
+export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin"
+# Allow any custom binaries
+export PATH="$HOME/bin:$PATH"
+# Add brew coreutils
+export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+# yarn
+export PATH="$HOME/.yarn/bin:$PATH"
+
+# Python3
+export PATH=/usr/local/opt/python/libexec/bin:$PATH
+
+# zplug
+# ---------------------------------------------------------------
+
+export ZPLUG_HOME=/usr/local/opt/zplug
+source $ZPLUG_HOME/init.zsh
+
+if ! zplug check; then
+    zplug install
+fi
+
+zplug "lib/theme-and-appearance", from:oh-my-zsh
+zplug "lib/clipboard", from:oh-my-zsh
+zplug "lib/completion", from:oh-my-zsh
+zplug "lib/key-bindings", from:oh-my-zsh
+zplug "lib/directories", from:oh-my-zsh
+zplug "lib/history", from:oh-my-zsh
+zplug "plugins/git", from:oh-my-zsh
+zplug "plugins/history", from:oh-my-zsh
+
+zplug "lukechilds/zsh-better-npm-completion"
+zplug "BuonOmo/yarn-completion"
+zplug "hlissner/zsh-autopair"
+zplug "MikeDacre/careful_rm"
+zplug "zsh-users/zsh-completions"
+zplug "zsh-users/zsh-syntax-highlighting"
+zplug "denysdovhan/spaceship-prompt", as:theme
+
+zplug load
+
+# Load my dotfiles after
+for file in ~/.{extra,aliases,work}; do
+  [ -r "$file" ] && [ -f "$file" ] && source "$file"
+done
+unset file
+
+# Exports
+# ---------------------------------------------------------------
+
+# Larger history (allow 32³ entries; default is 500)
+export HISTSIZE=32768
+export HISTFILESIZE=$HISTSIZE
+export HISTCONTROL=ignoredups
+
+# Make some commands not show up in history
+export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
+
+# Prefer US English and use UTF-8
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
+
+# Shorter timeout when pressing ESC
+export KEYTIMEOUT=1
+
+# Highlight section titles in manual pages
+export LESS_TERMCAP_md="$ORANGE"
+
+# Don’t clear the screen after quitting a manual page
+export MANPAGER="less -X"
+
+# Link Homebrew casks in `/Applications` rather than `~/Applications`
+export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+
+# Node dev
+export NODE_ENV=development
+
+# nnn
+# https://github.com/jarun/nnn
+# ---------------------------------------------------------------
+
+export NNN_USE_EDITOR=1
+export NNN_SHOW_HIDDEN=1
+export LC_COLLATE="C"
+
+# nvs
+# https://github.com/jasongin/nvs
+# ---------------------------------------------------------------
+
+export NVS_HOME="$HOME/.nvs"
+[ -s "$NVS_HOME/nvs.sh" ] && . "$NVS_HOME/nvs.sh"
+
+# Theme
+# https://github.com/denysdovhan/spaceship-prompt
+# ---------------------------------------------------------------
+
+# Git info
+# https://github.com/olivierverdier/zsh-git-prompt
+
+ZSH_GIT_PROMPT="$HOME/zsh-git-prompt/zshrc.sh"
+CUSTOM_GIT="$HOME/dotfiles/scripts/custom_git.zsh"
+
+[ -s $ZSH_GIT_PROMPT ] && source $ZSH_GIT_PROMPT
+[ -s $CUSTOM_GIT ] && source $CUSTOM_GIT
+
+ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_bold[green]%}✓%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_PREFIX=" "
+ZSH_THEME_GIT_PROMPT_SUFFIX=" "
+ZSH_THEME_GIT_PROMPT_SEPARATOR=" "
+ZSH_THEME_GIT_PROMPT_CHANGED="%{$fg[red]%}%{●%G%}"
+ZSH_THEME_GIT_PROMPT_STAGED="%{$fg[blue]%}%{✚%G%}"
+ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg[blue]%}◒"
+
+# Theme settings
+SPACESHIP_DIR_COLOR="yellow"
+SPACESHIP_USER_SHOW="true"
+SPACESHIP_CHAR_COLOR_SUCCESS="white"
+SPACESHIP_CHAR_COLOR_FAILURE="white"
+
+SPACESHIP_PROMPT_ORDER=(
+  user          # Username section
+  dir           # Current directory section
+  host          # Hostname section
+  custom_git
+  line_sep      # Line break
+  vi_mode       # Vi-mode indicator
+  jobs          # Background jobs indicator
+  char          # Prompt character
+)
+
+# Misc
+# ---------------------------------------------------------------
+
+# https://github.com/mroth/scmpuff
+eval "$(scmpuff init -s --aliases=false)"
+
+source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh

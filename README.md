@@ -12,3 +12,11 @@ Run the install scripts from the repo:
 cd dotfiles
 ./install.sh
 ```
+
+Set macOS settings
+
+```
+./scripts/macos.sh
+```
+
+When complete, open a new terminal window and run zplug install

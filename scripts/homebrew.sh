@@ -21,6 +21,7 @@ brew install zsh-autosuggestions
 brew install zplug
 brew install scmpuff
 brew install nnn
+brew install exa
 
 brew install git
 
